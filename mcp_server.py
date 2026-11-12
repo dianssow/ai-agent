@@ -214,8 +214,18 @@ def get_alternative_product(excluded_product_id: int) -> str:
 
 
 @mcp.tool()
-def place_order(product_id: int, quantity: int) -> str:
-    """Place a confirmed customer order for a product ID and quantity. Updates stock automatically."""
+def place_order(product_id: int, quantity: int, confirmed: bool = False) -> str:
+    """
+    Place a customer order.
+    IMPORTANT: Set confirmed=True ONLY AFTER the user has explicitly replied 'yes' or confirmed a summary.
+    On the first order request, ALWAYS call with confirmed=False to generate a confirmation prompt.
+    """
+    if not confirmed:
+        return (
+        "CONFIRMATION REQUIRED: Do not execute yet. Ask the user to explicitly"
+        f" confirm ordering {quantity}x Product ID #{product_id} before"
+        " calling place_order with confirmed=True."
+    )
     try:
         conn = get_db_connection()
         cursor = conn.cursor()

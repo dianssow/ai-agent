@@ -11,6 +11,8 @@ DB_CONFIG = {
     "port": os.getenv("DB_PORT", "5432"),
 }
 
+
+
 if not DB_CONFIG["password"]:
     raise ValueError("DB_PASSWORD is missing. Please set it in your .env file.")
 

@@ -81,6 +81,7 @@ async def run_agent_turn(
         model=LLM_MODEL,
         messages=messages,
         tools=formatted_tools,
+        options={"temperature":0}
     )
     messages.append(response.message)
 
